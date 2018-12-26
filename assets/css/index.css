@@ -4,14 +4,13 @@
       height: 100%;
       box-sizing: border-box;
       overflow: hidden;
-      font-family: SimHei;
+      font-family: Microsoft YaHei;
       /* -webkit-app-region: drag; */
     }
     body {
       margin: 0;
       height: 100%;
       overflow: hidden;
-
       -webkit-app-region: no-drag;
       /* background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%); */
       background: #eee;
@@ -59,8 +58,18 @@
       /* color: #fff; */
     }
 
+    #file-input {
+      opacity: 0;
+      width: 160px;
+      height: 50px;
+      position: absolute;
+      top: 160px;
+      left: 50px;
+      z-index: 99;
+      cursor: pointer;
+    }
 
-    .select-wrapper {
+    /* .select-wrapper {
       width: 380px;
       height: 120px;
       position: absolute;
@@ -68,42 +77,117 @@
       left: 50%;
       transform: translate(-50%);
       border: 1px dotted #46aef7;
-    }
+    } */
     *::selection {
       background: transparent;
     }
     .select {
-      width: 360px;
-      height: 100px;
+      width: 160px;
+      height: 50px;
       font-size: 20px;
       color: #fff;
-      font-family: SimHei;
-      line-height: 100px;
+      font-family: Microsoft YaHei;
+      line-height: 50px;
       text-align: center;
       background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
       position: absolute;
-      top: 60px;
-      left: 50%;
-      transform: translate(-50%);
+      top: 160px;
+      left: 50px;
       box-shadow: 0 0 30px #ccc;
       border-radius: 5px;
       transition: all .3s;
-      /* cursor: pointer; */
+      cursor: pointer;
+      -webkit-app-region: no-drag;
+    }
+    .clear {
+      width: 160px;
+      height: 50px;
+      font-size: 20px;
+      color: #fff;
+      font-family: Microsoft YaHei;
+      line-height: 50px;
+      text-align: center;
+      background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+      position: absolute;
+      top: 260px;
+      left: 50px;
+      box-shadow: 0 0 30px #ccc;
+      border-radius: 5px;
+      transition: all .3s;
+      cursor: pointer;
+      -webkit-app-region: no-drag;
+    }
+    .tiny {
+      width: 160px;
+      height: 50px;
+      font-size: 20px;
+      color: #fff;
+      font-family: Microsoft YaHei;
+      line-height: 50px;
+      text-align: center;
+      background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+      position: absolute;
+      top: 360px;
+      left: 50px;
+      box-shadow: 0 0 30px #ccc;
+      border-radius: 5px;
+      transition: all .3s;
+      cursor: pointer;
       -webkit-app-region: no-drag;
     }
     .file-list {
       width: 400px;
-      height: 200px;
+      height: 400px;
       position: absolute;
-      top: 200px;
-      left: 50%;
-      transform: translate(-50%);
-
+      top: 100px;
+      left: 300px;
+      /* transform: translate(-50%); */
       overflow: scroll;
+      color: #fff;
+      border-radius: 200px;
+      background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
     }
     .file-list li {
       width: 100%;
     }
     .file-list::-webkit-scrollbar {
         display: none;
+    }
+
+    .total-size-start {
+      width: 300px;
+      height: 60px;
+      position: absolute;
+      top: 200px;
+      left: 350px;
+      z-index: 2;
+      color: #fff;
+      text-align: center;
+      font-size: 40px;
+      line-height: 60px;
+    }
+    .total-size-end {
+      width: 300px;
+      height: 60px;
+      position: absolute;
+      top: 350px;
+      left: 350px;
+      z-index: 2;
+      color: #fff;
+      text-align: center;
+      font-size: 40px;
+      line-height: 60px;
+    }
+    .arrow {
+      width: 300px;
+      height: 60px;
+      position: absolute;
+      top: 270px;
+      left: 350px;
+      z-index: 2;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      font-size: 40px;
+      line-height: 60px;
     }

@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^4.0.0"
+  },
+  "dependencies": {
+    "tinify": "^1.6.0-beta.2"
   }
 }

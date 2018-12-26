@@ -26,12 +26,23 @@
     </ul>
   </div>
 
-  <input type='file' multiple />
-  <div class="select-wrapper"></div>
-  <div class="select" id="holder">将图片拖拽至此区域</div>
-  <ul class="file-list">
-
-  </ul>
+  <input type='file' id="file-input" multiple accept="image/*" />
+  <div class="total-size-start">
+    <span id="num-start">0</span>
+    <span id="tail-start">KB</span>
+  </div>
+  <div class="arrow">
+    ↓
+  </div>
+  <div class="total-size-end">
+    <span id="num-end">?</span>
+    <span id="tail-end">KB</span>
+  </div>
+  <!-- <div class="select-wrapper"></div> -->
+  <div class="select" id="holder">选择图片</div>
+  <div class="clear">清空列表</div>
+  <div class="tiny">压缩</div>
+  <ul class="file-list"></ul>
   <script src="./assets/js/index.js"></script>
 </body>
 </html>
