@@ -2,16 +2,12 @@ const {
   app,
   BrowserWindow,
   ipcMain,
-  Menu
 } = require('electron')
 const tinify = require('tinify')
 const fs = require('fs')
 
 let win
-const menu = new Menu()
 let totalSizeEnd = 0
-
-// tinify.key = window.localStorage.getItem('key') || ''
 
 ipcMain.on('key', (e, data) => {
   tinify.key = data
@@ -36,7 +32,6 @@ function initApp() {
   win.on('closed', () => {
     win = null
   })
-  menu.closePopup(win)
   ipcMain.on('min', () => {
     win.minimize()
   })
@@ -68,6 +63,7 @@ function initApp() {
           }).catch((err) => {
             if (err instanceof tinify.AccountError) {
               console.log("The error message is: " + err.message)
+              throw err
               // Verify your API key and account limit.
             } else if (err instanceof tinify.ClientError) {
               win.webContents.send('complete', `
@@ -79,12 +75,15 @@ function initApp() {
               console.log("The error message is: " + err.message)
             } else if (err instanceof tinify.ServerError) {
               console.log("The error message is: " + err.message)
+              throw err
               // Temporary issue with the Tinify API.
             } else if (err instanceof tinify.ConnectionError) {
               console.log("The error message is: " + err.message)
+              throw err
               // A network connection error occurred.
             } else {
               console.log("The error message is: " + err.message)
+              throw err
               // Something else went wrong, unrelated to the Tinify API.
             }
           })
@@ -99,6 +98,8 @@ function initApp() {
 }
 
 app.on('ready', initApp)
+
+
 
 // app.on('window-all-closed', () => {
 //   if (process.platform !== 'darwin') {
