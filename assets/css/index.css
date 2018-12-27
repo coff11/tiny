@@ -63,7 +63,7 @@
       width: 160px;
       height: 50px;
       position: absolute;
-      top: 160px;
+      top: 210px;
       left: 50px;
       z-index: 99;
       cursor: pointer;
@@ -91,7 +91,7 @@
       text-align: center;
       background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
       position: absolute;
-      top: 160px;
+      top: 210px;
       left: 50px;
       box-shadow: 0 0 30px #ccc;
       border-radius: 5px;
@@ -117,7 +117,7 @@
       cursor: pointer;
       -webkit-app-region: no-drag;
     }
-    .tiny {
+    .setting {
       width: 160px;
       height: 50px;
       font-size: 20px;
@@ -127,7 +127,7 @@
       text-align: center;
       background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
       position: absolute;
-      top: 360px;
+      top: 310px;
       left: 50px;
       box-shadow: 0 0 30px #ccc;
       border-radius: 5px;
@@ -136,11 +136,11 @@
       -webkit-app-region: no-drag;
     }
     .file-list {
-      width: 400px;
+      width: 200px;
       height: 400px;
       position: absolute;
       top: 100px;
-      left: 300px;
+      left: 250px;
       /* transform: translate(-50%); */
       overflow: scroll;
       color: #fff;
@@ -155,39 +155,142 @@
     }
 
     .total-size-start {
-      width: 300px;
+      width: 200px;
       height: 60px;
       position: absolute;
       top: 200px;
-      left: 350px;
+      left: 250px;
       z-index: 2;
       color: #fff;
       text-align: center;
-      font-size: 40px;
+      font-size: 20px;
       line-height: 60px;
     }
     .total-size-end {
-      width: 300px;
+      width: 200px;
       height: 60px;
       position: absolute;
       top: 350px;
-      left: 350px;
+      left: 250px;
       z-index: 2;
       color: #fff;
       text-align: center;
-      font-size: 40px;
+      font-size: 20px;
       line-height: 60px;
     }
     .arrow {
-      width: 300px;
+      width: 200px;
       height: 60px;
       position: absolute;
       top: 270px;
-      left: 350px;
+      left: 250px;
       z-index: 2;
       color: #fff;
       font-weight: bold;
       text-align: center;
       font-size: 40px;
       line-height: 60px;
+    }
+
+    .img-list {
+      width: 450px;
+      height: 400px;
+      position: absolute;
+      top: 100px;
+      left: 500px;
+      /* transform: translate(-50%); */
+      overflow: scroll;
+      color: #333;
+    }
+    .img-list li {
+      background: #fff;
+      /* background: #25af7a; */
+      /* background: #ff737a; */
+      width: 450px;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      box-shadow: 0 0 5px #ccc;
+    }
+    .img-list::-webkit-scrollbar {
+        display: none;
+    }
+    li.success {
+      background: #25af7a;
+    }
+    li.failed {
+      background: #ff737a;
+    }
+
+    .show-progress {
+      width: 160px;
+      height: 50px;
+      position: absolute;
+      top: 480px;
+      left: 50px;
+      font-size: 30px;
+      line-height: 50px;
+      text-align: center;
+      color: #555;
+    }
+
+    .key-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .8);
+      z-index: 101;
+    }
+    .key-wrapper input {
+      width: 300px;
+      height: 40px;
+      font-size: 16px;
+      position: absolute;
+      top: 250px;
+      left: 260px;
+      z-index: 104;
+      border-radius: 5px;
+      outline:none;  
+      border:0px;
+      padding: 10px;
+      background: #ccc;
+    }
+    .key-wrapper input::selection {
+      background: #ccc;
+    }
+    .confirm-btn {
+      width: 80px;
+      height: 40px;
+      background: #777;
+      cursor: pointer;
+      position: absolute;
+      top: 250px;
+      left: 580px;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+    }
+    .hide {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+    .key-wrapper .needkey {
+      color: #fff;
+      position: absolute;
+      top: 200px;
+      left: 200px;
+    }
+    .key-wrapper .tips {
+      color: #aaa;
+      position: absolute;
+      top: 300px;
+      left: 230px;
+      font-size: 14px;
+    }
+    .key-wrapper .tips p::selection {
+      background: #30c7ec;
+      color: #333;
     }

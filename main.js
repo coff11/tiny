@@ -7,30 +7,30 @@ const {
 const tinify = require('tinify')
 const fs = require('fs')
 
-tinify.key = 'XfxTl3BjY0CVbplLwvBc455WnzJCDthb'
-
-// tinify. = [
-//   {key: 'XfxTl3BjY0CVbplLwvBc455WnzJCDthb'},
-//   {key: '', useCount:0, fullMonth:[]},
-//   {key: '', useCount:0, fullMonth:[]}
-//   ]
-
-tinify.validate(function(err) {
-  if (err) throw err;
-  // Validation of API key failed.
-})
-
 let win
 const menu = new Menu()
+let totalSizeEnd = 0
+
+ipcMain.on('key', (e, data) => {
+  tinify.key = data
+  tinify.validate(function(err) {
+    if (err) {
+      throw err
+    } else {
+      win.webContents.send('keyIsOk')
+    }
+    // Validation of API key failed.
+  })
+})
 
 function initApp() {
   win = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
     frame: false
   })
   win.loadFile('index.html')
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   win.on('closed', () => {
     win = null
   })
@@ -45,22 +45,53 @@ function initApp() {
     win.close()
   })
   function pressImg(list) {
-    // console.log(list)
-    fs.readFile(list[0].path, (err, data) => {
-      if(err) {
-        console.log(err)
-      } else {
-        const source = tinify.fromFile(list[0].path);
-        const error = source.toFile(list[0].path);
-        error.then(() => {
-          console.log('111111111111111')
-        })
-        // ipcMain.send()
-      }
-    })
+    for(let i = 0; i < list.length; i ++) {
+      fs.readFile(list[i].path, (err, data) => {
+        if(err) {
+          console.log(err)
+        } else {
+          const source = tinify.fromFile(list[i].path)
+          const result = source.toFile(list[i].path)
+          result.then((x) => {
+            fs.stat(list[i].path, (err, data) => {
+              totalSizeEnd += parseInt(data.size / 1024)
+              console.log(list[i].name)
+              win.webContents.send('totalEnd', totalSizeEnd)
+              win.webContents.send('complete', `
+                <li class="success">
+                  <span class="show-name">${list[i].name}</span>&nbsp;&nbsp;&nbsp;
+                </li>
+              `)
+            })
+          }).catch((err) => {
+            if (err instanceof tinify.AccountError) {
+              console.log("The error message is: " + err.message)
+              // Verify your API key and account limit.
+            } else if (err instanceof tinify.ClientError) {
+              win.webContents.send('complete', `
+                <li class="failed">
+                  <span class="show-name">${list[i].name}</span>&nbsp;&nbsp;&nbsp;
+                </li>
+              `)
+              // Check your source image and request options.
+              console.log("The error message is: " + err.message)
+            } else if (err instanceof tinify.ServerError) {
+              console.log("The error message is: " + err.message)
+              // Temporary issue with the Tinify API.
+            } else if (err instanceof tinify.ConnectionError) {
+              console.log("The error message is: " + err.message)
+              // A network connection error occurred.
+            } else {
+              console.log("The error message is: " + err.message)
+              // Something else went wrong, unrelated to the Tinify API.
+            }
+          })
+        }
+      })
+    }
   }
   ipcMain.on('imgList', (e, imgList) => {
-    // console.log(imgList)
+    totalSizeEnd = 0
     pressImg(imgList)
   })
 }
