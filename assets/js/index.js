@@ -22,6 +22,8 @@ shutBtn.addEventListener('click', () => {
   ipcRenderer.send('shut')
 })
 
+console.log(localStorage.getItem('key'))
+
 fileInputEle.onchange = () => {
   document.getElementById('total').innerText = fileInputEle.files.length
   document.getElementById('now').innerText = 0
@@ -65,11 +67,15 @@ ipcRenderer.on('complete', (e, data) => {
   document.getElementById('now').innerText = pressNum
 })
 
+document.querySelector('.key-text').value = localStorage.getItem('key')
+
 document.querySelector('.setting').addEventListener('click', () => {
   document.querySelector('.key-wrapper').classList.remove('hide')
+  document.querySelector('.key-text').value = window.localStorage.getItem('key')
 })
 document.querySelector('.confirm-btn').addEventListener('click', () => {
   const keyValue = document.querySelector('.key-text').value
+  window.localStorage.setItem('key', keyValue)
   ipcRenderer.send('key', keyValue)
 })
 

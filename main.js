@@ -11,6 +11,8 @@ let win
 const menu = new Menu()
 let totalSizeEnd = 0
 
+// tinify.key = window.localStorage.getItem('key') || ''
+
 ipcMain.on('key', (e, data) => {
   tinify.key = data
   tinify.validate(function(err) {
@@ -42,7 +44,7 @@ function initApp() {
     win.maximize()
   })
   ipcMain.on('shut', () => {
-    win.close()
+    app.quit()
   })
   function pressImg(list) {
     for(let i = 0; i < list.length; i ++) {
