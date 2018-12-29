@@ -72,7 +72,6 @@ function initApp() {
                   <span class="show-name">${list[i].name}</span>&nbsp;&nbsp;&nbsp;
                 </li>
               `)
-              win.webContents.send('errHandler', 'Check your source image and request options.')
               // Check your source image and request options.
             } else if (err instanceof tinify.ServerError) {
               win.webContents.send('errHandler', 'Temporary issue with the Tinify API.')
