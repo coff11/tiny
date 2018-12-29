@@ -271,6 +271,19 @@
       line-height: 40px;
       color: #fff;
     }
+    .cancel-btn {
+      width: 80px;
+      height: 40px;
+      background: #777;
+      cursor: pointer;
+      position: absolute;
+      top: 250px;
+      left: 670px;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+    }
     .hide {
       display: none;
     }
@@ -293,4 +306,86 @@
     .key-wrapper .tips p::selection {
       background: #30c7ec;
       color: #333;
+    }
+
+    .loading-wrapper{
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 250px;
+      left: 400px;
+      z-index: 999;
+    }
+    .loading-wrapper span{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #eee;
+        position: absolute;
+        -webkit-animation: load 1.04s ease infinite;
+    }
+    @-webkit-keyframes load{
+        0%{
+            -webkit-transform: scale(1.2);
+            opacity: 1;
+        }
+        100%{
+            -webkit-transform: scale(.3);
+            opacity: 0.5;
+        }
+    }
+    .loading-wrapper span:nth-child(1){
+        left: 0;
+        top: 50%;
+        margin-top:-10px;
+        -webkit-animation-delay:0.13s;
+    }
+    .loading-wrapper span:nth-child(2){
+        left: 14px;
+        top: 14px;
+        -webkit-animation-delay:0.26s;
+    }
+    .loading-wrapper span:nth-child(3){
+        left: 50%;
+        top: 0;
+        margin-left: -10px;
+        -webkit-animation-delay:0.39s;
+    }
+    .loading-wrapper span:nth-child(4){
+        top: 14px;
+        right:14px;
+        -webkit-animation-delay:0.52s;
+    }
+    .loading-wrapper span:nth-child(5){
+        right: 0;
+        top: 50%;
+        margin-top:-10px;
+        -webkit-animation-delay:0.65s;
+    }
+    .loading-wrapper span:nth-child(6){
+        right: 14px;
+        bottom:14px;
+        -webkit-animation-delay:0.78s;
+    }
+    .loading-wrapper span:nth-child(7){
+        bottom: 0;
+        left: 50%;
+        margin-left: -10px;
+        -webkit-animation-delay:0.91s;
+    }
+    .loading-wrapper span:nth-child(8){
+        bottom: 14px;
+        left: 14px;
+        -webkit-animation-delay:1.04s;
+    }
+
+    .cover {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 34px;
+      left: 0;
+      z-index: 991;
+      background: rgba(0, 0, 0, .1);
     }

@@ -13,6 +13,7 @@ ipcMain.on('key', (e, data) => {
   tinify.key = data
   tinify.validate(function(err) {
     if (err) {
+      win.webContents.send('keyIsErr')
       throw err
     } else {
       win.webContents.send('keyIsOk')
@@ -28,7 +29,7 @@ function initApp() {
     frame: false
   })
   win.loadFile('index.html')
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
   win.on('closed', () => {
     win = null
   })
@@ -53,7 +54,7 @@ function initApp() {
             fs.stat(list[i].path, (err, data) => {
               totalSizeEnd += parseInt(data.size / 1024)
               console.log(list[i].name)
-              win.webContents.send('totalEnd', totalSizeEnd)
+              win.webContents.send('totalEnd', totalSizeEnd, i)
               win.webContents.send('complete', `
                 <li class="success">
                   <span class="show-name">${list[i].name}</span>&nbsp;&nbsp;&nbsp;
@@ -62,7 +63,7 @@ function initApp() {
             })
           }).catch((err) => {
             if (err instanceof tinify.AccountError) {
-              console.log("The error message is: " + err.message)
+              win.webContents.send('errHandler', 'Verify your API key and account limit.')
               throw err
               // Verify your API key and account limit.
             } else if (err instanceof tinify.ClientError) {
@@ -71,18 +72,18 @@ function initApp() {
                   <span class="show-name">${list[i].name}</span>&nbsp;&nbsp;&nbsp;
                 </li>
               `)
+              win.webContents.send('errHandler', 'Check your source image and request options.')
               // Check your source image and request options.
-              console.log("The error message is: " + err.message)
             } else if (err instanceof tinify.ServerError) {
-              console.log("The error message is: " + err.message)
+              win.webContents.send('errHandler', 'Temporary issue with the Tinify API.')
               throw err
               // Temporary issue with the Tinify API.
             } else if (err instanceof tinify.ConnectionError) {
-              console.log("The error message is: " + err.message)
+              win.webContents.send('errHandler', 'A network connection error occurred.')
               throw err
               // A network connection error occurred.
             } else {
-              console.log("The error message is: " + err.message)
+              win.webContents.send('errHandler', 'Something else went wrong, unrelated to the Tinify API.')
               throw err
               // Something else went wrong, unrelated to the Tinify API.
             }

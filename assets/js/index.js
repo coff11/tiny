@@ -22,20 +22,19 @@ shutBtn.addEventListener('click', () => {
   ipcRenderer.send('shut')
 })
 
-console.log(localStorage.getItem('key'))
-
 fileInputEle.onchange = () => {
-  document.getElementById('total').innerText = fileInputEle.files.length
-  document.getElementById('now').innerText = 0
   pressNum = 0
   imgListEle.innerHTML = ''
   totalSizeStart = 0
   imgList = []
   for(let i = 0; i < fileInputEle.files.length; i ++) {
+    document.getElementById('total').innerText = fileInputEle.files.length
+    document.getElementById('now').innerText = 0
+    document.querySelector('.loading-wrapper').classList.remove('hide')
+    document.querySelector('.cover').classList.remove('hide')
     totalSizeStart += parseInt(fileInputEle.files[i].size / 1024)
     document.getElementById('num-start').innerText = totalSizeStart
     document.getElementById('num-end').innerText = '?'
-    console.log('1111', fileInputEle.files[i].path)
     imgTpl.push({
       id: fileInputEle.files[i].name,
       tpl: `
@@ -46,7 +45,6 @@ fileInputEle.onchange = () => {
       size: fileInputEle.files[i].size,
       class: ''
     })
-    console.log(imgTpl)
     imgList.push({
       path: fileInputEle.files[i].path,
       name: fileInputEle.files[i].name,
@@ -65,6 +63,10 @@ ipcRenderer.on('complete', (e, data) => {
   imgListEle.innerHTML += data
   pressNum += 1
   document.getElementById('now').innerText = pressNum
+  if(pressNum == fileInputEle.files.length) {
+    document.querySelector('.loading-wrapper').classList.add('hide')
+    document.querySelector('.cover').classList.add('hide')
+  }
 })
 
 document.querySelector('.key-text').value = localStorage.getItem('key')
@@ -77,8 +79,35 @@ document.querySelector('.confirm-btn').addEventListener('click', () => {
   const keyValue = document.querySelector('.key-text').value
   window.localStorage.setItem('key', keyValue)
   ipcRenderer.send('key', keyValue)
+  document.querySelector('.loading-wrapper').classList.remove('hide')
+  document.querySelector('.cover').classList.remove('hide')
+})
+
+document.querySelector('.cancel-btn').addEventListener('click', () => {
+  document.querySelector('.key-wrapper').classList.add('hide')
 })
 
 ipcRenderer.on('keyIsOk', () => {
-  console.log(document.querySelector('.key-wrapper').classList.add('hide'))
+  document.querySelector('.key-wrapper').classList.add('hide')
+  document.querySelector('.loading-wrapper').classList.add('hide')
+  document.querySelector('.cover').classList.add('hide')
 })
+ipcRenderer.on('keyIsErr', () => {
+  document.querySelector('.loading-wrapper').classList.add('hide')
+  document.querySelector('.cover').classList.add('hide')
+})
+ipcRenderer.on('errHandler', (e, data) => {
+  document.querySelector('.loading-wrapper').classList.add('hide')
+  document.querySelector('.cover').classList.add('hide')
+  alert(data)
+  pressNum = 0
+  imgListEle.innerHTML = ''
+  totalSizeStart = 0
+  imgList = []
+  fileInputEle.value = ''
+  document.getElementById('total').innerText = fileInputEle.files.length
+  document.getElementById('now').innerText = 0
+  document.getElementById('num-start').innerText = totalSizeStart
+  document.getElementById('num-end').innerText = '?'
+})
+
