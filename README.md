@@ -6,6 +6,9 @@
 
 ![](https://coffee-1257263554.cos.ap-guangzhou.myqcloud.com/tiny2.png)
 
+## 下载
+[百度网盘](https://pan.baidu.com/s/1fhUSnWvdi35ZosJWqHEF0w)
+
 ## 运行
 ```
 # 安装依赖
